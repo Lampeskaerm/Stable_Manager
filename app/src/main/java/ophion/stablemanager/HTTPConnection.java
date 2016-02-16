@@ -4,20 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.Buffer;
-import java.util.HashMap;
-import java.util.Map;
+
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -25,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import ophion.stablemanager.objects.User;
 
 /**
  * Created by AK on 2/16/2016.
@@ -68,8 +58,13 @@ public class HTTPConnection {
                 try {
                     jsonObj = new JSONObject(responseString);
                     JSONObject userInfo = jsonObj.getJSONObject("user");
-                    User user = new User(userInfo.getInt("id"));
-                    user.SetName(userInfo.getString("first_name"));
+                    User user = new User(userInfo.getInt("user_id"));
+                    user.SetName(userInfo.getString("first_name"),userInfo.getString("last_name"));
+                    user.SetAgeFromBirthday(userInfo.getString("birthday"));
+                    user.SetEmail(userInfo.getString("email"));
+                    user.SetFacebookID(userInfo.getString("facebook_id"));
+                    user.SetPassword(userInfo.getString("password"));
+                    user.SetPhonenumber(userInfo.getString("phonenumber"));
                     MainActivityFragment.user = user;
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,4 +1,4 @@
-package ophion.stablemanager;
+package ophion.stablemanager.objects;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +19,8 @@ public class User {
     private String password;
     private String phonenumber;
     private ArrayList<PermissionLevel> permissions;
+    private ArrayList<Horse> owned;
+    private ArrayList<Horse> riding;
     private String facebookID;
 
     public User (int ID) {
@@ -91,6 +93,22 @@ public class User {
 
     public void SetPermissions(ArrayList<PermissionLevel> permissions) {
         this.permissions = permissions;
+    }
+
+    public ArrayList<Horse> GetOwned() {
+        return owned;
+    }
+
+    public void SetOwned(ArrayList<Horse> owned) {
+        this.owned = owned;
+    }
+
+    public ArrayList<Horse> GetRiding() {
+        return riding;
+    }
+
+    public void SetRiding(ArrayList<Horse> riding) {
+        this.riding = riding;
     }
 
     public String GetFacebookID() {

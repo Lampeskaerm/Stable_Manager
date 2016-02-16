@@ -32,6 +32,8 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import ophion.stablemanager.objects.User;
+
 /**
  * A placeholder fragment containing a simple view.
  */
