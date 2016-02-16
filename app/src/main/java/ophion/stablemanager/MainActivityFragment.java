@@ -4,21 +4,18 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -52,6 +49,9 @@ public class MainActivityFragment extends AppCompatActivity {
     //User variables
     private Profile userProfile;
 
+    //Test variables
+    private Button testButton;
+
     public static void main (String[] args) {
 
     }
@@ -69,7 +69,7 @@ public class MainActivityFragment extends AppCompatActivity {
         /*
         Setup loginbutton with callback
          */
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
         loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -88,6 +88,15 @@ public class MainActivityFragment extends AppCompatActivity {
             @Override
             public void onError(FacebookException exception) {
                 Log.e("LoginActivity", exception.getCause().toString());
+            }
+        });
+
+        /*This is a test button - will be deleted later */
+        testButton = (Button) findViewById(R.id.test_button);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new HTTPConnection(MainActivityFragment.this).Connect();
             }
         });
 
