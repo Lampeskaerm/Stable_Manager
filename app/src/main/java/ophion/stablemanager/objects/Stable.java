@@ -6,14 +6,32 @@ import java.util.ArrayList;
  * Created by AK on 2/16/2016.
  */
 public class Stable {
+    private int id;
+    private String name;
     private ArrayList<User> StabledUsers;
-    private ArrayList<User> Owners;
+    private ArrayList<User> StableOwners;
     private ArrayList<Horse> StabledHorses;
     private ArrayList<User> OtherUsers;
     private ArrayList<Box> StableBoxes;
     private int totalBoxes;
     private int availableBoxes;
     private int occupiedBoxes;
+
+    public int GetId() {
+        return id;
+    }
+
+    public void SetId(int id) {
+        this.id = id;
+    }
+
+    public String GetName() {
+        return name;
+    }
+
+    public void SetName(String name) {
+        this.name = name;
+    }
 
     public ArrayList<User> GetStabledUsers() {
         return StabledUsers;
@@ -23,12 +41,12 @@ public class Stable {
         StabledUsers = stabledUsers;
     }
 
-    public ArrayList<User> GetOwners() {
-        return Owners;
+    public ArrayList<User> GetStableOwners() {
+        return StableOwners;
     }
 
-    public void SetOwners(ArrayList<User> owners) {
-        Owners = owners;
+    public void SetStableOwners(ArrayList<User> owners) {
+        StableOwners = owners;
     }
 
     public ArrayList<Horse> GetStabledHorses() {

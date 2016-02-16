@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class Horse {
     private int id;
+    private int stable_id;
+    private int box_id;
     private int age;
     private String name;
     private String owner;
@@ -26,6 +28,22 @@ public class Horse {
 
     public void SetId(int id) {
         this.id = id;
+    }
+
+    public int GetStable_id() {
+        return stable_id;
+    }
+
+    public void SetStable_id(int stable_id) {
+        this.stable_id = stable_id;
+    }
+
+    public int GetBox_id() {
+        return box_id;
+    }
+
+    public void SetBox_id(int box_id) {
+        this.box_id = box_id;
     }
 
     public int GetAge() {
