@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@android:color/holo_blue_bright">
+
+    <TextView
+        android:id="@+id/horse_info_name"
+        android:text="Horse name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/horse_info_age"
+        android:text="Age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horse_info_name"/>
+    <TextView
+        android:id="@+id/horse_info_race"
+        android:text="Race"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horse_info_age"/>
+    <TextView
+        android:id="@+id/horse_info_owner"
+        android:text="Owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horse_info_race"/>
+
+</RelativeLayout>
