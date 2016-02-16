@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -25,6 +26,7 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
@@ -44,10 +46,14 @@ public class MainActivityFragment extends AppCompatActivity {
     //Facebook login variables
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    private boolean loginSucceeded = false;
+    private boolean loggedInToFacebook;
+
+    //HTTPRequest variables
+    private RequestParams params;
 
     //User variables
-    private Profile userProfile;
+    private Profile facebookProfile;
+    public static User user;
 
     //Test variables
     private Button testButton;
@@ -66,6 +72,12 @@ public class MainActivityFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loggedInToFacebook = isLoggedInFacebook();
+
+        if(loggedInToFacebook) {
+            facebookProfile = Profile.getCurrentProfile();
+        }
+
         /*
         Setup loginbutton with callback
          */
@@ -76,8 +88,10 @@ public class MainActivityFragment extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d("LoginActivity", "It was a success!");
                 RunGraphRequest(loginResult);
-                userProfile = Profile.getCurrentProfile();
-                //GetUserData(userProfile.getId());
+                facebookProfile = Profile.getCurrentProfile();
+                params = new RequestParams();
+                params.put("facebook_id",facebookProfile.getId());
+                new HTTPConnection(MainActivityFragment.this).Connect(params, "get_user");
             }
 
             @Override
@@ -96,7 +110,6 @@ public class MainActivityFragment extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HTTPConnection(MainActivityFragment.this).Connect();
             }
         });
 
@@ -141,6 +154,11 @@ public class MainActivityFragment extends AppCompatActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
     } //Ends onCreate
+
+    private boolean isLoggedInFacebook() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return (accessToken != null && !accessToken.isExpired());
+    }
 
     private void RunGraphRequest(LoginResult loginResult) {
         GraphRequest request = GraphRequest.newMeRequest(
