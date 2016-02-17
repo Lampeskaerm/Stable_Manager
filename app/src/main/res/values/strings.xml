@@ -10,12 +10,13 @@
 
     <string-array name="menuTitles">
         <item>Stable</item>
-        <item>Your Horses</item>
+        <item>My Horses</item>
         <item>Board</item>
+        <item>User</item>
     </string-array>
 
-    <!--Stable strings -->
-    <string name="stable_welcome">Welcome to the stables!</string>
+    <!--My Horses strings -->
+    <string name="stable_welcome">Here you can see an overview of your horses!</string>
 
     <!--Facebook login strings-->
     <string name="facebook_app_id">445570715647126</string>

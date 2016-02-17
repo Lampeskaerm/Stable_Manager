@@ -8,92 +8,92 @@ import java.util.ArrayList;
 public class Stable {
     private int id;
     private String name;
-    private ArrayList<User> StabledUsers;
-    private ArrayList<User> StableOwners;
-    private ArrayList<Horse> StabledHorses;
-    private ArrayList<User> OtherUsers;
-    private ArrayList<Box> StableBoxes;
+    private ArrayList<User> stabledUsers;
+    private ArrayList<User> stableOwners;
+    private ArrayList<Horse> stabledHorses;
+    private ArrayList<User> otherUsers;
+    private ArrayList<Box> stableBoxes;
     private int totalBoxes;
     private int availableBoxes;
     private int occupiedBoxes;
 
-    public int GetId() {
+    public int getId() {
         return id;
     }
 
-    public void SetId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String GetName() {
+    public String getName() {
         return name;
     }
 
-    public void SetName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public ArrayList<User> GetStabledUsers() {
-        return StabledUsers;
+    public ArrayList<User> getStabledUsers() {
+        return stabledUsers;
     }
 
-    public void SetStabledUsers(ArrayList<User> stabledUsers) {
-        StabledUsers = stabledUsers;
+    public void setStabledUsers(ArrayList<User> stabledUsers) {
+        this.stabledUsers = stabledUsers;
     }
 
-    public ArrayList<User> GetStableOwners() {
-        return StableOwners;
+    public ArrayList<User> getStableOwners() {
+        return stableOwners;
     }
 
-    public void SetStableOwners(ArrayList<User> owners) {
-        StableOwners = owners;
+    public void setStableOwners(ArrayList<User> stableOwners) {
+        this.stableOwners = stableOwners;
     }
 
-    public ArrayList<Horse> GetStabledHorses() {
-        return StabledHorses;
+    public ArrayList<Horse> getStabledHorses() {
+        return stabledHorses;
     }
 
-    public void SetStabledHorses(ArrayList<Horse> stabledHorses) {
-        StabledHorses = stabledHorses;
+    public void setStabledHorses(ArrayList<Horse> stabledHorses) {
+        this.stabledHorses = stabledHorses;
     }
 
-    public ArrayList<User> GetOtherUsers() {
-        return OtherUsers;
+    public ArrayList<User> getOtherUsers() {
+        return otherUsers;
     }
 
-    public void SetOtherUsers(ArrayList<User> otherUsers) {
-        OtherUsers = otherUsers;
+    public void setOtherUsers(ArrayList<User> otherUsers) {
+        this.otherUsers = otherUsers;
     }
 
-    public ArrayList<Box> GetStableBoxes() {
-        return StableBoxes;
+    public ArrayList<Box> getStableBoxes() {
+        return stableBoxes;
     }
 
-    public void SetStableBoxes(ArrayList<Box> stableBoxes) {
-        StableBoxes = stableBoxes;
+    public void setStableBoxes(ArrayList<Box> stableBoxes) {
+        this.stableBoxes = stableBoxes;
     }
 
-    public int GetTotalBoxes() {
+    public int getTotalBoxes() {
         return totalBoxes;
     }
 
-    public void SetTotalBoxes(int totalBoxes) {
+    public void setTotalBoxes(int totalBoxes) {
         this.totalBoxes = totalBoxes;
     }
 
-    public int GetAvailableBoxes() {
+    public int getAvailableBoxes() {
         return availableBoxes;
     }
 
-    public void SetAvailableBoxes(int availableBoxes) {
+    public void setAvailableBoxes(int availableBoxes) {
         this.availableBoxes = availableBoxes;
     }
 
-    public int GetOccupiedBoxes() {
+    public int getOccupiedBoxes() {
         return occupiedBoxes;
     }
 
-    public void SetOccupiedBoxes(int occupiedBoxes) {
+    public void setOccupiedBoxes(int occupiedBoxes) {
         this.occupiedBoxes = occupiedBoxes;
     }
 }

@@ -7,11 +7,12 @@ import java.util.ArrayList;
  */
 public class Horse {
     private int id;
-    private int stable_id;
-    private int box_id;
+    private int stableId;
+    private int boxId;
+    private int ownerId;
     private int age;
     private String name;
-    private String owner;
+    private User owner;
     private String veterinarian;
     private String farrier; //Smed
     private String paddockInfo;
@@ -22,91 +23,99 @@ public class Horse {
         this.id = id;
     }
 
-    public int GetId() {
+    public int getId() {
         return id;
     }
 
-    public void SetId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int GetStable_id() {
-        return stable_id;
+    public int getStableId() {
+        return stableId;
     }
 
-    public void SetStable_id(int stable_id) {
-        this.stable_id = stable_id;
+    public void setStableId(int stable_id) {
+        this.stableId = stable_id;
     }
 
-    public int GetBox_id() {
-        return box_id;
+    public int getBoxId() {
+        return boxId;
     }
 
-    public void SetBox_id(int box_id) {
-        this.box_id = box_id;
+    public void setBoxId(int box_id) {
+        this.boxId = box_id;
     }
 
-    public int GetAge() {
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int owner_id) {
+        this.ownerId = owner_id;
+    }
+
+    public int getAge() {
         return age;
     }
 
-    public void SetAge(int age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public String GetName() {
+    public String getName() {
         return name;
     }
 
-    public void SetName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String GetOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void SetOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public String GetVeterinarian() {
+    public String getVeterinarian() {
         return veterinarian;
     }
 
-    public void SetVeterinarian(String veterinarian) {
+    public void setVeterinarian(String veterinarian) {
         this.veterinarian = veterinarian;
     }
 
-    public String GetFarrier() {
+    public String getFarrier() {
         return farrier;
     }
 
-    public void SetFarrier(String farrier) {
+    public void setFarrier(String farrier) {
         this.farrier = farrier;
     }
 
-    public String GetPaddockInfo() {
+    public String getPaddockInfo() {
         return paddockInfo;
     }
 
-    public void SetPaddockInfo(String paddockInfo) {
+    public void setPaddockInfo(String paddockInfo) {
         this.paddockInfo = paddockInfo;
     }
 
-    public String GetNote() {
+    public String getNote() {
         return note;
     }
 
-    public void SetNote(String note) {
+    public void setNote(String note) {
         this.note = note;
     }
 
-    public ArrayList<User> GetRiders() {
+    public ArrayList<User> getRiders() {
         return riders;
     }
 
-    public void SetRiders(ArrayList<User> riders) {
+    public void setRiders(ArrayList<User> riders) {
         this.riders = riders;
     }
 }

@@ -7,11 +7,12 @@ import java.util.Date;
  * Created by AK on 2/16/2016.
  */
 public class User {
+
     public enum PermissionLevel{
         STABLEOWNER,RIDER,HORSEOWNER,EMPLOYEE
     }
 
-    private int ID;
+    private int id;
     private int age;
     private String name;
     private Date birthday;
@@ -19,103 +20,110 @@ public class User {
     private String password;
     private String phonenumber;
     private ArrayList<PermissionLevel> permissions;
-    private ArrayList<Horse> owned;
-    private ArrayList<Horse> riding;
+    private ArrayList<Horse> ownedHorses;
+    private ArrayList<Horse> riddenHorses;
     private String facebookID;
 
-    public User (int ID) {
-        this.ID = ID;
+    public User (int id) {
+        this.id = id;
+        permissions = new ArrayList<PermissionLevel>();
+        ownedHorses = new ArrayList<Horse>();
+        riddenHorses = new ArrayList<Horse>();
     }
 
-    public void SetID (int ID) {
-        this.ID = ID;
+    public void addOwnedHorse(Horse h) {
+        ownedHorses.add(h);
     }
 
-    public int GetID () {
-        return ID;
+    public void setID(int ID) {
+        this.id = ID;
     }
 
-    public void SetAgeFromBirthday(String birthday){
+    public int getID() {
+        return id;
+    }
+
+    public void setAgeFromBirthday(String birthday){
 
     }
 
-    public int GetAge() {
+    public int getAge() {
         return age;
     }
 
-    public void SetName (String firstName, String lastName) {
+    public void setName(String firstName, String lastName) {
         name = firstName + " " + lastName;
     }
 
-    public void SetName (String firstName) {
+    public void setName(String firstName) {
         name = firstName;
     }
 
-    public String GetName () {
+    public String getName() {
         return name;
     }
 
-    public Date GetBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void SetBirthday(Date birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    public String GetEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void SetEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String GetPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void SetPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String GetPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void SetPhonenumber(String phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
-    public ArrayList<PermissionLevel> GetPermissions() {
+    public ArrayList<PermissionLevel> getPermissions() {
         return permissions;
     }
 
-    public void SetPermissions(ArrayList<PermissionLevel> permissions) {
+    public void setPermissions(ArrayList<PermissionLevel> permissions) {
         this.permissions = permissions;
     }
 
-    public ArrayList<Horse> GetOwned() {
-        return owned;
+    public ArrayList<Horse> getOwnedHorses() {
+        return ownedHorses;
     }
 
-    public void SetOwned(ArrayList<Horse> owned) {
-        this.owned = owned;
+    public void setOwnedHorses(ArrayList<Horse> ownedHorses) {
+        this.ownedHorses = ownedHorses;
     }
 
-    public ArrayList<Horse> GetRiding() {
-        return riding;
+    public ArrayList<Horse> getRiddenHorses() {
+        return riddenHorses;
     }
 
-    public void SetRiding(ArrayList<Horse> riding) {
-        this.riding = riding;
+    public void setRiddenHorses(ArrayList<Horse> riddenHorses) {
+        this.riddenHorses = riddenHorses;
     }
 
-    public String GetFacebookID() {
+    public String getFacebookID() {
         return facebookID;
     }
 
-    public void SetFacebookID(String facebookID) {
+    public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
     }
 }

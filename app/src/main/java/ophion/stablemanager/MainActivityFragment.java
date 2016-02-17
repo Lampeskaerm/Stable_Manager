@@ -31,6 +31,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 import ophion.stablemanager.objects.User;
 
@@ -52,6 +53,7 @@ public class MainActivityFragment extends AppCompatActivity {
 
     //HTTPRequest variables
     private RequestParams params;
+    private boolean initDataDownloaded = false;
 
     //User variables
     private Profile facebookProfile;
@@ -74,10 +76,14 @@ public class MainActivityFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loggedInToFacebook = isLoggedInFacebook();
+        if(!initDataDownloaded) {
+            loggedInToFacebook = isLoggedInFacebook();
 
-        if(loggedInToFacebook) {
-            facebookProfile = Profile.getCurrentProfile();
+            if (loggedInToFacebook) {
+                facebookProfile = Profile.getCurrentProfile();
+                GetStartInformation();
+            }
+            initDataDownloaded = true;
         }
 
         /*
@@ -91,9 +97,7 @@ public class MainActivityFragment extends AppCompatActivity {
                 Log.d("LoginActivity", "It was a success!");
                 RunGraphRequest(loginResult);
                 facebookProfile = Profile.getCurrentProfile();
-                params = new RequestParams();
-                params.put("facebook_id",facebookProfile.getId());
-                new HTTPConnection(MainActivityFragment.this).Connect(params, "get_user");
+                GetStartInformation();
             }
 
             @Override
@@ -104,14 +108,6 @@ public class MainActivityFragment extends AppCompatActivity {
             @Override
             public void onError(FacebookException exception) {
                 Log.e("LoginActivity", exception.getCause().toString());
-            }
-        });
-
-        /*This is a test button - will be deleted later */
-        testButton = (Button) findViewById(R.id.test_button);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
 
@@ -157,6 +153,18 @@ public class MainActivityFragment extends AppCompatActivity {
 
     } //Ends onCreate
 
+    private void GetStartInformation() {
+        params = new RequestParams();
+        params.put("facebook_id",facebookProfile.getId());
+        HTTPConnection con = new HTTPConnection(MainActivityFragment.this);
+        LinkedHashMap<String,RequestParams> hashMap = new LinkedHashMap<>();
+        hashMap.put("get_user", params);
+        params.put("owner_id", 0);
+        hashMap.put("get_horses",params);
+        con.Connect(hashMap);
+        Log.d("HTTPCLIENT","HTTP request is done");
+    }
+
     private boolean isLoggedInFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return (accessToken != null && !accessToken.isExpired());
@@ -197,16 +205,15 @@ public class MainActivityFragment extends AppCompatActivity {
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
-        /*Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);*/
 
         Fragment fragment = null;
 
         switch(position) {
-            case 0: //Stables
-                fragment = new StableFragment();
+            case 1: //Stables
+                fragment = new MyHorsesFragment();
+                break;
+            default:
+                break;
         }
 
         if(fragment == null) {
