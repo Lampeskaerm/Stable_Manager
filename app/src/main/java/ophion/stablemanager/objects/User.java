@@ -2,6 +2,7 @@ package ophion.stablemanager.objects;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by AK on 2/16/2016.
@@ -20,19 +21,24 @@ public class User {
     private String password;
     private String phonenumber;
     private ArrayList<PermissionLevel> permissions;
-    private ArrayList<Horse> ownedHorses;
-    private ArrayList<Horse> riddenHorses;
+    private HashMap<Integer, Horse> ownedHorses;
+    private HashMap<Integer, Horse> riddenHorses;
     private String facebookID;
+    private HashMap<Integer, Horse> oh;
 
     public User (int id) {
         this.id = id;
         permissions = new ArrayList<PermissionLevel>();
-        ownedHorses = new ArrayList<Horse>();
-        riddenHorses = new ArrayList<Horse>();
+        ownedHorses = new HashMap<>();
+        riddenHorses = new HashMap<>();
     }
 
-    public void addOwnedHorse(Horse h) {
-        ownedHorses.add(h);
+    public void addOwnedHorse(int id, Horse h) {
+        ownedHorses.put(id,h);
+    }
+
+    public Horse getOwnedHorse (int id) {
+        return ownedHorses.get(id);
     }
 
     public void setID(int ID) {
@@ -103,19 +109,19 @@ public class User {
         this.permissions = permissions;
     }
 
-    public ArrayList<Horse> getOwnedHorses() {
+    public HashMap<Integer, Horse> getOwnedHorses() {
         return ownedHorses;
     }
 
-    public void setOwnedHorses(ArrayList<Horse> ownedHorses) {
+    public void setOwnedHorses(HashMap<Integer, Horse> ownedHorses) {
         this.ownedHorses = ownedHorses;
     }
 
-    public ArrayList<Horse> getRiddenHorses() {
+    public HashMap<Integer, Horse> getRiddenHorses() {
         return riddenHorses;
     }
 
-    public void setRiddenHorses(ArrayList<Horse> riddenHorses) {
+    public void setRiddenHorses(HashMap<Integer, Horse> riddenHorses) {
         this.riddenHorses = riddenHorses;
     }
 

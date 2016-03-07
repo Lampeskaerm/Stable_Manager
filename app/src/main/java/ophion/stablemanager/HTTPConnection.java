@@ -140,13 +140,26 @@ public class HTTPConnection {
                             h.setOwnerId(jHorse.getInt("owner_id"));
                             if(h.getOwnerId() == MainActivityFragment.user.getID()) {
                                 h.setOwner(MainActivityFragment.user);
-                                MainActivityFragment.user.addOwnedHorse(h);
+                                MainActivityFragment.user.addOwnedHorse(h.getId(),h);
                             }
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                break;
+            case "add_horse":
+                try {
+                    JSONObject jsonHorse = jsonObj.getJSONObject("horse");
+                    int horseId = jsonHorse.getInt("horse_id");
+                    Horse h = new Horse(horseId);
+                    h.setAge(jsonHorse.getInt("age"));
+                    h.setName(jsonHorse.getString("name"));
+                    MainActivityFragment.user.addOwnedHorse(horseId, h);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 break;
         }

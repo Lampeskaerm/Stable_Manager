@@ -1,6 +1,7 @@
 package ophion.stablemanager;
 
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,8 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -30,15 +33,18 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import ophion.stablemanager.objects.Horse;
 import ophion.stablemanager.objects.User;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends AppCompatActivity {
+public class MainActivityFragment extends AppCompatActivity implements AddHorseDialog.NoticeDialogListener, CloseDialog.NoticeDialogListener{
     //navigation bar variables
     private String[] menuTitles;
     private DrawerLayout drawerLayout;
@@ -61,6 +67,9 @@ public class MainActivityFragment extends AppCompatActivity {
 
     //Test variables
     private Button testButton;
+
+    //Temporary dialog
+    private DialogFragment tempDialog;
 
     public static void main (String[] args) {
 
@@ -156,12 +165,11 @@ public class MainActivityFragment extends AppCompatActivity {
     private void GetStartInformation() {
         params = new RequestParams();
         params.put("facebook_id",facebookProfile.getId());
-        HTTPConnection con = new HTTPConnection(MainActivityFragment.this);
         LinkedHashMap<String,RequestParams> hashMap = new LinkedHashMap<>();
         hashMap.put("get_user", params);
         params.put("owner_id", 0);
         hashMap.put("get_horses",params);
-        con.Connect(hashMap);
+        makeHttpRequest(hashMap);
         Log.d("HTTPCLIENT","HTTP request is done");
     }
 
@@ -187,6 +195,12 @@ public class MainActivityFragment extends AppCompatActivity {
         request.executeAsync();
     }
 
+    private void makeHttpRequest(LinkedHashMap<String,RequestParams> map) {
+        HTTPConnection con = new HTTPConnection(MainActivityFragment.this);
+        con.Connect(map);
+        params = new RequestParams();
+    }
+
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -209,8 +223,11 @@ public class MainActivityFragment extends AppCompatActivity {
         Fragment fragment = null;
 
         switch(position) {
-            case 1: //Stables
-                fragment = new MyHorsesFragment();
+            case 1: //My Horses
+                fragment = new YourHorsesFragment();
+                break;
+            case 4: //User
+                fragment = new UserFragment();
                 break;
             default:
                 break;
@@ -242,5 +259,57 @@ public class MainActivityFragment extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onAddHorseDialogSaveClick(DialogFragment dialog) {
+        View rootView = dialog.getView();
+        String name = ((EditText) rootView.findViewById(R.id.name)).getText().toString();
+        name = setUpperCase(name);
+        String age = ((EditText) rootView.findViewById(R.id.age)).getText().toString();
+        params.put("name",name);
+        params.put("age",age);
+        params.put("owner_id",user.getID());
+        LinkedHashMap<String,RequestParams> map = new LinkedHashMap<>();
+        map.put("add_horse",params);
+        makeHttpRequest(map);
+        getSupportActionBar().show();
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDialogCancelClick(DialogFragment dialog) {
+        DialogFragment closeDialog = new CloseDialog();
+        tempDialog = dialog;
+        closeDialog.show(getSupportFragmentManager(),"close");
+    }
+
+    @Override
+    public void onCloseDialogPositiveClick(DialogFragment dialog) {
+        tempDialog.dismiss();
+        getSupportActionBar().show();
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onCloseDialogNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+        tempDialog = null;
+    }
+
+    public String setUpperCase(String str) {
+        String strings[];
+        String caps = "";
+        strings = str.split(" ");
+        for(int i=0;i<strings.length;i++){
+            String str1 = strings[i];
+            String str2 = str1.substring(0,1).toUpperCase() + str1.substring(1);
+            if(i != strings.length-1)
+                caps += str2 + " ";
+            else
+                caps += str2;
+        }
+
+        return caps;
     }
 }

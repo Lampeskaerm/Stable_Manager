@@ -1,22 +1,38 @@
 <resources>
     <string name="app_name">Stable Manager</string>
     <string name="hello_world">Hello world!</string>
+
+    <!-- General Use -->
     <string name="action_settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancel_caps">CANCEL</string>
+    <string name="save">Save</string>
+    <string name="save_caps">SAVE</string>
+    <string name="discard_caps">DISCARD</string>
+    <string name="discard_changes">Discard changes?</string>
 
     <!-- Navigation strings -->
     <string name="drawer_open">Drawer open</string>
     <string name="drawer_close">Drawer close</string>
     <string name="navigation_icon_desc">Navigation</string>
-
     <string-array name="menuTitles">
         <item>Stable</item>
         <item>My Horses</item>
         <item>Board</item>
+        <item>Test</item>
         <item>User</item>
     </string-array>
 
+    <!--Add Horse strings-->
+    <string name="add_horse_title">New horse</string>
+
     <!--My Horses strings -->
-    <string name="stable_welcome">Here you can see an overview of your horses!</string>
+    <string name="your_horses_header">Your horses</string>
+    <string name="name_hint">Horse name</string>
+    <string name="age_hint">Age</string>
+
+    <!-- User strings -->
+    <string name="user_welcome">Welcome to your user page.</string>
 
     <!--Facebook login strings-->
     <string name="facebook_app_id">445570715647126</string>

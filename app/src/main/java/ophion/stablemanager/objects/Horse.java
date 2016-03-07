@@ -11,13 +11,14 @@ public class Horse {
     private int boxId;
     private int ownerId;
     private int age;
-    private String name;
+    private String race = "";
+    private String name = "";
     private User owner;
-    private String veterinarian;
-    private String farrier; //Smed
-    private String paddockInfo;
-    private String note;
-    private ArrayList<User> riders;
+    private String veterinarian = "";
+    private String farrier = ""; //Smed
+    private String paddockInfo = "";
+    private String note = "";
+    private ArrayList<User> riders = new ArrayList<>();
 
     public Horse (int id) {
         this.id = id;
@@ -61,6 +62,14 @@ public class Horse {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
     }
 
     public String getName() {
