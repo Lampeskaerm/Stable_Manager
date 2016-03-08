@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class YourHorsesFragment extends Fragment {
 
         //Initialize variables
         user = MainActivityFragment.user;
+
         horses = new ArrayList<Horse>(user.getOwnedHorses().values());
 
         //Define and set the recyclerview

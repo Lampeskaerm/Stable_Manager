@@ -4,6 +4,7 @@
 
     <!-- General Use -->
     <string name="action_settings">Settings</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_caps">CANCEL</string>
     <string name="save">Save</string>
@@ -16,9 +17,9 @@
     <string name="drawer_close">Drawer close</string>
     <string name="navigation_icon_desc">Navigation</string>
     <string-array name="menuTitles">
+        <item>Frontpage</item>
+        <item>Your Horses</item>
         <item>Stable</item>
-        <item>My Horses</item>
-        <item>Board</item>
         <item>Test</item>
         <item>User</item>
     </string-array>
@@ -26,10 +27,13 @@
     <!--Add Horse strings-->
     <string name="add_horse_title">New horse</string>
 
-    <!--My Horses strings -->
+    <!--Your Horses strings -->
     <string name="your_horses_header">Your horses</string>
     <string name="name_hint">Horse name</string>
     <string name="age_hint">Age</string>
+    <string name="not_logged_in">You need to be logged in to see your horses.</string>
+    <string name="no_horses_text">You haven\'t registered any horses. Add some now! \n
+        Click the button to add your first horse.</string>
 
     <!-- User strings -->
     <string name="user_welcome">Welcome to your user page.</string>

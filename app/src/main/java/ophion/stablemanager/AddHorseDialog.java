@@ -19,7 +19,7 @@ public class AddHorseDialog extends DialogFragment {
 
     public interface NoticeDialogListener {
         public void onAddHorseDialogSaveClick(DialogFragment dialog);
-        public void onDialogCancelClick(DialogFragment dialog);
+        public void onAddHorseDialogCancelClick(DialogFragment dialog);
     }
 
     NoticeDialogListener listener;
@@ -35,7 +35,7 @@ public class AddHorseDialog extends DialogFragment {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onDialogCancelClick(AddHorseDialog.this);
+                listener.onAddHorseDialogCancelClick(AddHorseDialog.this);
             }
         });
 

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -33,24 +32,25 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import ophion.stablemanager.objects.Horse;
 import ophion.stablemanager.objects.User;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends AppCompatActivity implements AddHorseDialog.NoticeDialogListener, CloseDialog.NoticeDialogListener{
+public class MainActivityFragment extends AppCompatActivity
+        implements AddHorseDialog.NoticeDialogListener, DiscardDialog.NoticeDialogListener,
+        NotificationDialog.NoticeDialogListener{
+
     //navigation bar variables
     private String[] menuTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private CharSequence title;
     private ActionBarDrawerToggle drawerToggle;
+    private int previousPosition;
 
     //Facebook login variables
     private LoginButton loginButton;
@@ -64,9 +64,6 @@ public class MainActivityFragment extends AppCompatActivity implements AddHorseD
     //User variables
     private Profile facebookProfile;
     public static User user;
-
-    //Test variables
-    private Button testButton;
 
     //Temporary dialog
     private DialogFragment tempDialog;
@@ -157,6 +154,9 @@ public class MainActivityFragment extends AppCompatActivity implements AddHorseD
             }
         };
 
+        drawerList.setItemChecked(0,true);
+        previousPosition = 0;
+
         // Set the drawer toggle as the DrawerListener
         drawerLayout.setDrawerListener(drawerToggle);
 
@@ -222,30 +222,51 @@ public class MainActivityFragment extends AppCompatActivity implements AddHorseD
 
         Fragment fragment = null;
 
+        if(!isLoggedInFacebook()) {
+            user = null;
+        }
+
         switch(position) {
+            case 0: //Main page
+                fragment = new Fragment();
+                break;
             case 1: //My Horses
-                fragment = new YourHorsesFragment();
+                if(user != null)
+                    fragment = new YourHorsesFragment();
+                else {
+                    NotificationDialog dialog = new NotificationDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Text",
+                            getResources().getText(R.string.not_logged_in).toString());
+                    dialog.setArguments(bundle);
+
+                    dialog.show(getSupportFragmentManager(), "notification");
+
+                    drawerList.setItemChecked(previousPosition,true);
+                }
                 break;
             case 4: //User
                 fragment = new UserFragment();
                 break;
             default:
+                fragment = new Fragment();
                 break;
         }
 
-        if(fragment == null) {
-            fragment = new Fragment();
+        if(fragment != null) {
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .addToBackStack("OptionMenuTransition")
+                    .commit();
+
+            // Highlight the selected item, update the title, and close the drawer
+            drawerList.setItemChecked(position, true);
+            setTitle(menuTitles[position]);
+            previousPosition = position;
         }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
-
-        // Highlight the selected item, update the title, and close the drawer
-        drawerList.setItemChecked(position, true);
-        setTitle(menuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
     }
 
@@ -278,23 +299,28 @@ public class MainActivityFragment extends AppCompatActivity implements AddHorseD
     }
 
     @Override
-    public void onDialogCancelClick(DialogFragment dialog) {
-        DialogFragment closeDialog = new CloseDialog();
+    public void onAddHorseDialogCancelClick(DialogFragment dialog) {
+        DialogFragment closeDialog = new DiscardDialog();
         tempDialog = dialog;
-        closeDialog.show(getSupportFragmentManager(),"close");
+        closeDialog.show(getSupportFragmentManager(), "discard");
     }
 
     @Override
-    public void onCloseDialogPositiveClick(DialogFragment dialog) {
+    public void onDiscardDialogPositiveClick(DialogFragment dialog) {
         tempDialog.dismiss();
         getSupportActionBar().show();
         dialog.dismiss();
     }
 
     @Override
-    public void onCloseDialogNegativeClick(DialogFragment dialog) {
+    public void onDiscardDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
         tempDialog = null;
+    }
+
+    @Override
+    public void onNoticeDialogPositiveClick(DialogFragment dialog) {
+        dialog.dismiss();
     }
 
     public String setUpperCase(String str) {
